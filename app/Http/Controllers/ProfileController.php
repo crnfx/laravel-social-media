@@ -14,18 +14,28 @@ class ProfileController extends Controller
 {
     public function show(User $user)
     {
-        $posts = $user->posts()->with(['likes', 'comments.user'])->orderBy('created_at', 'desc')->get();
-        return view('profile.show', compact('user', 'posts'));
+        try {
+            $posts = $user->posts()->with(['likes', 'comments.user'])->orderBy('created_at', 'desc')->get();
+            return view('profile.show', compact('user', 'posts'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+        
     }
 
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(Request $request): View|RedirectResponse
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        try {
+            return view('profile.edit', [
+                'user' => $request->user(),
+            ]);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+        
     }
 
     /**
@@ -33,22 +43,27 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $user = $request->user();
-        $data = $request->validated();
-
-        if ($request->hasFile('profile_image')) {
-            $data['profile_image'] = $request->file('profile_image')->store('avatars', 'public');
+        try {
+            $user = $request->user();
+            $data = $request->validated();
+    
+            if ($request->hasFile('profile_image')) {
+                $data['profile_image'] = $request->file('profile_image')->store('avatars', 'public');
+            }
+    
+            $user->fill($data);
+    
+            if ($request->user()->isDirty('email')) {
+                $request->user()->email_verified_at = null;
+            }
+    
+            $request->user()->save();
+    
+            return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        $user->fill($data);
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+       
     }
 
     /**
@@ -56,19 +71,24 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        try {
+            $request->validateWithBag('userDeletion', [
+                'password' => ['required', 'current_password'],
+            ]);
+    
+            $user = $request->user();
+    
+            Auth::logout();
+    
+            $user->delete();
+    
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+    
+            return Redirect::to('/');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    
     }
 }

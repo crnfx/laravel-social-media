@@ -16,8 +16,15 @@ class LikeController extends Controller
 
     public function toggle(Post $post)
     {
-        $this->likeService->toggleLike($post, auth()->user());
+        try {
+            $me = auth()->user();
 
-        return back();
+            $this->likeService->toggleLike($post, $me);
+
+            return back();
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+        
     }
 }

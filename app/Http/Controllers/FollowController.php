@@ -16,10 +16,15 @@ class FollowController extends Controller
 
     public function toggle(User $user)
     {
-        $me = auth()->user();
+        try {
+            $me = auth()->user();
 
-        $this->followService->toggleFollow($me, $user);
-
-        return back();
+            $this->followService->toggleFollow($me, $user);
+    
+            return back();
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+       
     }
 }

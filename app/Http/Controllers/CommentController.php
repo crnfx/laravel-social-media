@@ -17,8 +17,12 @@ class CommentController extends Controller
 
     public function store(CommentRequest $request, Post $post)
     {
-        $this->commentService->createComment($post, $request->validated());
-
-        return back();
+        try {
+            $this->commentService->createComment($post, $request->validated());
+            return back();
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+       
     }
 }

@@ -17,8 +17,13 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::with('user')->latest()->get();
-        return view('posts.index', compact('posts'));
+        try {
+            $posts = Post::with('user')->latest()->get();
+            return view('posts.index', compact('posts'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+       
     }
 
     public function create()
@@ -28,15 +33,25 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $this->postService->createPost($request->validated(), $request->file('image'));
+        try {
+            $this->postService->createPost($request->validated(), $request->file('image'));
 
-        return redirect()->route('post.index')->with('success', 'Post created successfully.');
+            return redirect()->route('post.index')->with('success', 'Post created successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+       
     }
 
     public function destroy(Post $post)
     {
-        $this->postService->deletePost($post);
+        try {
+            $this->postService->deletePost($post);
 
-        return redirect()->route('post.index')->with('success', 'Post deleted successfully.');
+            return redirect()->route('post.index')->with('success', 'Post deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+        
     }
 }
