@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Like extends Model
+class PostLike extends Model
 {
     protected $fillable = [
         'user_id',
         'post_id',
     ];
+
+    const UPDATED_AT = null;
 
     public function user()
     {
