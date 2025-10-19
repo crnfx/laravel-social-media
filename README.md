@@ -1,9 +1,9 @@
-*Laravel social media project*
+# Laravel social media project*
 
-**To start project, follow next commands**
+## To start project, follow next commands
 
 ```bash
-git clone https://github.com/crnfx/laravel-social-media.git>
+git clone https://github.com/crnfx/laravel-social-media.git
 cd laravel-social-media
 ```
 
