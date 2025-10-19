@@ -1,3 +1,5 @@
+*Laravel social media project*
+
 **To start project, follow next commands**
 
 ```bash
@@ -12,3 +14,18 @@ cd laravel-social-media
 ```bash
     sudo ./vendor/bin/sail artisan migrate
 ```
+
+**Database structure**
+
+app/
+├── Models/
+├── Http/
+│   ├── Controllers/
+│   └── Middleware/
+database/
+├── migrations/
+├── seeders/
+resources/
+├── views/
+├── js/
+└── css/
