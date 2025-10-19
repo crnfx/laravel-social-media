@@ -8,24 +8,22 @@ cd laravel-social-media
 ```
 
 ```bash
-    sudo ./vendor/bin/sail up -d
+sudo ./vendor/bin/sail up -d
 ```
 
 ```bash
-    sudo ./vendor/bin/sail artisan migrate
+sudo ./vendor/bin/sail artisan migrate
 ```
 
-**Database structure**
+## 📁 Database structure
 
-app/
-├── Models/
-├── Http/
-│   ├── Controllers/
-│   └── Middleware/
-database/
-├── migrations/
-├── seeders/
-resources/
-├── views/
-├── js/
-└── css/
+| Папка | Назначение |
+|-------|------------|
+| `app/Models/` | Eloquent модели |
+| `app/Http/Controllers/` | Контроллеры приложения |
+| `app/Http/Middleware/` | Промежуточное ПО |
+| `database/migrations/` | Миграции БД |
+| `database/seeders/` | Наполнители данных |
+| `resources/views/` | Шаблоны Blade |
+| `resources/js/` | JavaScript файлы |
+| `resources/css/` | Стили |
