@@ -1,4 +1,4 @@
-# Laravel social media project*
+# Laravel social media project
 
 ## To start project, follow next commands
 
@@ -15,7 +15,7 @@ sudo ./vendor/bin/sail up -d
 sudo ./vendor/bin/sail artisan migrate
 ```
 
-## 📁 Database structure
+## Database structure
 
 | Папка | Назначение |
 |-------|------------|
