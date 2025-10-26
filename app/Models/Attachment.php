@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Attachments extends Model
+class Attachment extends Model
 {
-    protected $fillable = ['path'];
+    protected $fillable = ['post_id', 'user_id', 'path'];
 
     public function user()
     {
