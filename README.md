@@ -8,7 +8,10 @@ cd laravel-social-media
 ```
 
 ```bash
-sudo ./vendor/bin/sail up -d
+1. composer install
+2. npm install
+3. ./vendor/bin/sail up -d
+4. npm run dev
 ```
 
 ```bash
