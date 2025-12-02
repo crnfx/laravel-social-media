@@ -30,6 +30,11 @@ class Post extends Model
         return $this->hasMany(Comment::class)->latest();
     }
 
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+
     public function isLikedBy(User $user)
     {
         return $this->likes()->where('user_id', $user->id)->exists();
