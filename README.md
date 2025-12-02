@@ -3,8 +3,8 @@
 ## To start project, follow next commands
 
 ```bash
-git clone https://github.com/crnfx/laravel-social-media.git
-cd laravel-social-media
+1. git clone https://github.com/crnfx/laravel-social-media.git
+2. cd laravel-social-media
 ```
 
 ```bash
@@ -15,7 +15,7 @@ cd laravel-social-media
 ```
 
 ```bash
-sudo ./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan migrate
 ```
 
 ## Database structure
